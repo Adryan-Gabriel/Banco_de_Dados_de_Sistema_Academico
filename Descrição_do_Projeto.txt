@@ -12,7 +12,7 @@ O coração acadêmico do sistema funciona interligando Curso, Grade e Disciplin
 Documento de Requisitos Funcionais 
 
 Módulo de Usuários e Perfis 
-RF01 – Cadastro de Base Unificada (Usuario): O sistema deve registrar os dados  fundamentais de qualquer pessoa na instituição, salvando Nome, CPF (único),  Telefone, E-mail (único) e Senha. 
+RF01 – Cadastro de Usuários: Registro de CPF, E-mail e Senha (obrigatórios). Nome e Telefone são opcionais (NULL) para permitir testes práticos de comandos JOIN. 
 RF02 – Vínculo de Alunos: O sistema deve permitir que um usuário cadastrado seja  identificado como um Aluno através do seu ID, sem a necessidade de duplicar seus  dados pessoais. 
 RF03 – Vínculo e Remuneração de Docentes (Professor): O sistema deve permitir  que um usuário seja registrado como Professor, adicionando de forma exclusiva a  sua formação acadêmica e o seu salário base (DECIMAL). 
 
@@ -26,5 +26,5 @@ RF07 – Oferta de Turmas: O sistema deve permitir abrir turmas associando  dire
 RF08 – Enturmação e Frequência Parcial (Aluno_Turma): O sistema deve permitir  inscrever os alunos nas turmas disponíveis para o semestre e registrar a frequência  parcial atualizada de cada um dentro daquela disciplina. 
 
 Módulo de Matrícula e Histórico 
-RF09 – Controle de Matrícula em Cursos: O sistema deve gerenciar o vínculo do  aluno com o curso escolhido, registrando o Ano/Semestre de ingresso, a situação  atual (Ativo, Trancado, etc.), além de totalizar a carga horária e a frequência global  acumulada no curso. 
+RF09 – Controle de Matrícula: Gerenciar o vínculo do aluno com o curso, registrando o Ano/Semestre de ingresso e a situação atual (ex: Ativo, Trancado).  
 RF10 – Consolidação de Notas (Histórico): Ao encerrar o período letivo, o sistema  deve registrar de forma permanente no histórico do aluno a nota final obtida na  matéria (no formato DECIMAL(4,2)) e a sua frequência final fechada  (DECIMAL(5,2)).
