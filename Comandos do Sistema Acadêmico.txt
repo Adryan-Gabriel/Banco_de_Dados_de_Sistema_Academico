@@ -1,0 +1,155 @@
+-- ETAPA 2 - IMPLEMENTAÇÃO FÍSICA: SISTEMA ACADÊMICO
+-- Aluno: Adryan Gabriel Borges Rocha
+-- Banco de Dados: PostgreSQL (pgAdmin)
+
+Comandos do Sistema Acadêmico
+
+-- 1. Usuario
+CREATE TABLE Usuario (
+    ID_Usuario INT PRIMARY KEY,
+    NOME VARCHAR(100),
+    CPF VARCHAR(14) NOT NULL UNIQUE,
+    Telefone VARCHAR(15), 
+    E_MAIL VARCHAR(100) NOT NULL, 
+    SENHA VARCHAR(100) NOT NULL
+);
+
+-- 2. Professor
+CREATE TABLE Professor (
+    ID_Professor INT PRIMARY KEY,
+    FORMAÇÃO VARCHAR(100) NOT NULL,
+    SALÁRIO DECIMAL(10,2) NOT NULL,
+    ID_Usuario INT NOT NULL,
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario) ON DELETE CASCADE
+);
+
+-- 3. Aluno 
+CREATE TABLE Aluno (
+    ID_Aluno INT PRIMARY KEY,
+    ID_Usuario INT NOT NULL,
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario) ON DELETE CASCADE
+);
+
+-- 4. Curso
+CREATE TABLE Curso (
+    ID_Curso INT PRIMARY KEY,
+    MODALIDADE VARCHAR(50) NOT NULL,
+    DURAÇÃO VARCHAR(50) NOT NULL
+);
+
+-- 5. Grade
+CREATE TABLE Grade (
+    ID_Grade INT PRIMARY KEY,
+    ID_Curso INT,
+    CARGA_HORÁRIA_TOTAL INT NOT NULL,
+    FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso) ON DELETE CASCADE
+);
+
+-- 6. Disciplina
+CREATE TABLE Disciplina (
+    ID_Disciplina INT PRIMARY KEY,
+    ID_Grade INT,
+    nome VARCHAR(100) NOT NULL,
+    creditos INT NOT NULL,
+    carga_horaria INT NOT NULL,
+    FOREIGN KEY (ID_Grade) REFERENCES Grade(ID_Grade) ON DELETE CASCADE
+);
+
+-- 7. Turma 
+CREATE TABLE Turma (
+    ID_Turma INT PRIMARY KEY,
+    ID_Disciplina INT,
+    ID_Professor INT,
+    FOREIGN KEY (ID_Disciplina) REFERENCES Disciplina(ID_Disciplina) ON DELETE CASCADE,
+    FOREIGN KEY (ID_Professor) REFERENCES Professor(ID_Professor) ON DELETE CASCADE
+);
+
+-- 8. Matricula
+CREATE TABLE Matricula (
+    ID_Matricula INT PRIMARY KEY,
+    ID_Aluno INT,
+    ID_Curso INT,
+    SITUAÇÃO VARCHAR(30) NOT NULL,
+    Ano_Semestre VARCHAR(10) NOT NULL,
+    FOREIGN KEY (ID_Aluno) REFERENCES Aluno(ID_Aluno) ON DELETE CASCADE,
+    FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso) ON DELETE CASCADE
+);
+
+-- 9. Aluno_Turma 
+CREATE TABLE Aluno_Turma (
+    ID_Aluno INT,
+    ID_Turma INT,
+    FREQUENCIA DECIMAL(5,2) NOT NULL,
+    PRIMARY KEY (ID_Aluno, ID_Turma),
+    FOREIGN KEY (ID_Aluno) REFERENCES Aluno(ID_Aluno) ON DELETE CASCADE,
+    FOREIGN KEY (ID_Turma) REFERENCES Turma(ID_Turma) ON DELETE CASCADE
+);
+
+-- 10. Historico
+CREATE TABLE Historico (
+    ID_Historico INT PRIMARY KEY,
+    ID_Aluno INT,
+    ID_Turma INT,
+    NOTA DECIMAL(4,2) NOT NULL,
+    FREQUENCIA DECIMAL(5,2) NOT NULL,
+    FOREIGN KEY (ID_Aluno) REFERENCES Aluno(ID_Aluno) ON DELETE CASCADE,
+    FOREIGN KEY (ID_Turma) REFERENCES Turma(ID_Turma) ON DELETE CASCADE
+);
+
+-- INSERÇÃO DE DADOS 
+
+INSERT INTO Usuario (ID_Usuario, NOME, CPF, Telefone, E_MAIL, SENHA) VALUES (1, 'Carlos Silva', '123.456.789-00', '(62) 98888-1111', 'carlos@gmail.com', '123');
+INSERT INTO Usuario (ID_Usuario, NOME, CPF, Telefone, E_MAIL, SENHA) VALUES (2, 'Ana Beatriz', '987.654.321-11', '(62) 98888-2222', 'ana@outlook.com', '123');
+INSERT INTO Usuario (ID_Usuario, NOME, CPF, Telefone, E_MAIL, SENHA) VALUES (3, 'Adryan Rocha', '111.222.333-44', '(62) 99240-0470', 'adryan@gmail.com', '123');
+INSERT INTO Usuario (ID_Usuario, NOME, CPF, Telefone, E_MAIL, SENHA) VALUES (4, 'Lucas Souza', '000.111.222-33', '(62) 99111-0000', 'lucas@gmail.com', '123');
+INSERT INTO Usuario (ID_Usuario, CPF, Telefone, E_MAIL, SENHA) VALUES (5, '222.333.444-55', '(62) 99555-1234', 'mariana.costa@gmail.com', 'senha012'); 
+INSERT INTO Usuario (ID_Usuario, NOME, CPF, E_MAIL, SENHA) VALUES (6, 'Rodrigo Alves', '444.555.111-77', 'rodrigo.alves@gmail.com', 'senha888'); 
+INSERT INTO Usuario (ID_Usuario, CPF, E_MAIL, SENHA) VALUES (7, '777.888.999-00', 'beatriz.santos@outlook.com', 'senha777'); 
+INSERT INTO Usuario (ID_Usuario, CPF, Telefone, E_MAIL, SENHA) VALUES (8, '333.444.555-11', '(62) 98123-4567', 'fernando.lima@gmail.com', 'senha111'); 
+INSERT INTO Usuario (ID_Usuario, NOME, CPF, E_MAIL, SENHA) VALUES (9, 'Juliana Ribeiro', '888.111.000-11', 'ju.ribeiro@outlook.com', 'senha555'); 
+
+INSERT INTO Professor VALUES (10, 'Doutorado', 8500.00, 1); 
+INSERT INTO Professor VALUES (20, 'Mestrado', 6200.00, 2);
+INSERT INTO Professor VALUES (30, 'Especialização em Redes', 4500.00, 5);
+
+INSERT INTO Aluno VALUES (100, 3);
+INSERT INTO Aluno VALUES (200, 4);
+INSERT INTO Aluno VALUES (300, 6);
+INSERT INTO Aluno VALUES (400, 7);
+
+INSERT INTO Curso VALUES (1, 'Presencial', '8 Semestres');
+INSERT INTO Grade VALUES (1, 1, 3200);
+INSERT INTO Disciplina VALUES (1, 1, 'Banco de Dados', 4, 64);
+INSERT INTO Turma VALUES (1, 1, 10); -- Ligado ao Professor ID 10
+INSERT INTO Matricula VALUES (1, 100, 1, 'ATIVO', '2026/1');
+INSERT INTO Aluno_Turma VALUES (100, 1, 100.00);
+INSERT INTO Historico VALUES (1, 100, 1, 10.00, 100.00);
+INSERT INTO Curso VALUES (2, 'EAD', '4 Semestres');
+INSERT INTO Grade VALUES (2, 2, 1600);
+INSERT INTO Disciplina VALUES (2, 2, 'Estrutura de Dados', 4, 64);
+INSERT INTO Turma VALUES (2, 2, 30);
+INSERT INTO Matricula VALUES (2, 300, 1, 'ATIVO', '2026/1');
+INSERT INTO Matricula VALUES (3, 400, 1, 'ATIVO', '2026/1');
+INSERT INTO Aluno_Turma VALUES (300, 1, 92.50); 
+INSERT INTO Aluno_Turma VALUES (400, 2, 85.00);
+INSERT INTO Historico VALUES (2, 300, 1, 8.50, 92.50);
+
+select * from aluno;
+
+select * from professor;
+
+select * from usuario;
+
+select * from matricula;
+
+select * from turma;
+
+select * from aluno_turma;
+
+select * from disciplina;
+
+select * from historico;
+
+select * from curso;
+
+select * from grade;
