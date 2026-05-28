@@ -2,7 +2,7 @@
 -- Aluno: Adryan Gabriel Borges Rocha
 -- Banco de Dados: PostgreSQL (pgAdmin)
 
-Comandos do Sistema Acadêmico
+--Comandos do Sistema Acadêmico
 
 -- 1. Usuario
 CREATE TABLE Usuario (
