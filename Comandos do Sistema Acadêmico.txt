@@ -133,23 +133,3 @@ INSERT INTO Matricula VALUES (3, 400, 1, 'ATIVO', '2026/1');
 INSERT INTO Aluno_Turma VALUES (300, 1, 92.50); 
 INSERT INTO Aluno_Turma VALUES (400, 2, 85.00);
 INSERT INTO Historico VALUES (2, 300, 1, 8.50, 92.50);
-
-select * from aluno;
-
-select * from professor;
-
-select * from usuario;
-
-select * from matricula;
-
-select * from turma;
-
-select * from aluno_turma;
-
-select * from disciplina;
-
-select * from historico;
-
-select * from curso;
-
-select * from grade;
