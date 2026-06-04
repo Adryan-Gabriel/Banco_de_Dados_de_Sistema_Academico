@@ -30,7 +30,7 @@ CREATE TABLE Aluno (
 -- 4. Curso
 CREATE TABLE Curso (
     ID_Curso INT PRIMARY KEY,
-    Nome_Curso VARCHAR(100) NOT NULL, -- Atualizado conforme imagem
+    Nome_Curso VARCHAR(100) NOT NULL,
     MODALIDADE VARCHAR(50) NOT NULL,
     DURACAO VARCHAR(50) NOT NULL
 );
@@ -39,7 +39,7 @@ CREATE TABLE Curso (
 CREATE TABLE Grade (
     ID_Grade INT PRIMARY KEY,
     ID_Curso INT,
-    Nome_Grade VARCHAR(100) NOT NULL, -- Atualizado conforme imagem
+    Nome_Grade VARCHAR(100) NOT NULL,
     CARGA_HORARIA_TOTAL INT NOT NULL,
     FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso) ON DELETE CASCADE
 );
@@ -48,7 +48,7 @@ CREATE TABLE Grade (
 CREATE TABLE Disciplina (
     ID_Disciplina INT PRIMARY KEY,
     ID_Grade INT,
-    Nome_Disciplina VARCHAR(100) NOT NULL, -- Ajustado caixa alta/baixa conforme imagem
+    Nome_Disciplina VARCHAR(100) NOT NULL,
     creditos INT NOT NULL,
     carga_horaria INT NOT NULL,
     FOREIGN KEY (ID_Grade) REFERENCES Grade(ID_Grade) ON DELETE CASCADE
