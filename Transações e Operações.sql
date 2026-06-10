@@ -32,3 +32,21 @@ VALUES (46, 600, 88, 0.00, 100.00);
 
 -- Como a operação falhou e quebrou as regras, desfazemos tudo o que foi tentado
 ROLLBACK;
+
+-- CENÁRIO C: Teste utilizando savepoint
+
+-- Inicia uma transação
+BEGIN;
+
+-- Cria um ponto de restauração dentro da transação
+SAVEPOINT ANTES_DO_INSERT;
+
+-- Insere um novo usuário
+INSERT INTO Usuario (ID_Usuario,NOME,CPF,Telefone,E_MAIL,SENHA)
+VALUES (1234,'Bruno Messi','122.456.789-00','(62) 98888-1111','Ronaldo7@gmail.com','123');
+
+-- Desfaz tudo o que foi feito após o savepoi
+ROLLBACK TO SAVEPOINT ANTES_DO_INSERT;
+
+-- Finaliza a transação
+COMMIT;
