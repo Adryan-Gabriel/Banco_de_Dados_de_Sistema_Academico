@@ -7,17 +7,17 @@ SELECT Aluno.ID_Aluno, Usuario.NOME
 FROM Aluno
 INNER JOIN Usuario ON Aluno.ID_Usuario = Usuario.ID_Usuario;
 
--- 2.Exibe quem nao possui nenhum registro correspondente na tabela Matricula.(Nenhum)
-SELECT Aluno.ID_Aluno, Matricula.ID_Matricula
+-- 2.Exibe os alunos que estão sem o Nome cadastrado. 
+SELECT Aluno.ID_Aluno, Usuario.NOME
 FROM Aluno
-LEFT JOIN Matricula ON Aluno.ID_Aluno = Matricula.ID_Aluno
-WHERE Matricula.ID_Matricula IS NULL;
+LEFT JOIN Usuario ON Aluno.ID_Usuario = Usuario.ID_Usuario
+WHERE Usuario.NOME IS NULL;
 
--- 3.Identifica quais disciplinas cadastradas nao possuem nenhuma turma vinculada.(Nenhum)
-SELECT Turma.ID_Turma, Disciplina.Nome_Disciplina
-FROM Turma
-RIGHT JOIN Disciplina ON Turma.ID_Disciplina = Disciplina.ID_Disciplina
-WHERE Turma.ID_Turma IS NULL;
+-- 3.Identifica os alunos que estão sem o Telefone no sistema.
+SELECT Aluno.ID_Aluno, Usuario.NOME, Usuario.Telefone
+FROM Usuario
+RIGHT JOIN Aluno ON Aluno.ID_Usuario = Usuario.ID_Usuario
+WHERE Usuario.Telefone IS NULL;
 
 -- 4. Cruza a tabela principal de Matricula com Aluno, Usuario e Curso
 SELECT 
@@ -94,7 +94,6 @@ JOIN Turma T ON H.ID_Turma = T.ID_Turma
 JOIN Disciplina D ON T.ID_Disciplina = D.ID_Disciplina
 GROUP BY D.Nome_Disciplina
 HAVING AVG(H.NOTA) < 7.00;
-
  
 -- 10.Calcular a media global de todas as notas e filtra os alunos que ficaram acima desse valor.
 SELECT 
